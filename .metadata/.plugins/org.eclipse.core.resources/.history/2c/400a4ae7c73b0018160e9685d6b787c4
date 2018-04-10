@@ -1,0 +1,23 @@
+package com.lijunpeng.my_tomcat;
+
+import java.io.InputStream;
+
+/**
+ * 获取 http请求头所有信息并截取URL地址返回
+ * @author Administrator
+ *
+ */
+public class Request {
+	private InputStream is;
+	
+	private String url;
+	
+	public Request(InputStream is) {
+		this.is = is;
+	}
+	
+	public void parse() {
+		
+	}
+	
+}

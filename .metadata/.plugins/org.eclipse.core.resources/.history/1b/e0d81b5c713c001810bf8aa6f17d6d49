@@ -1,0 +1,71 @@
+package com.lijunpeng.my_tomcat;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
+/**
+ * 响应请求读取文件并写到浏览器
+ * @author Administrator
+ *
+ */
+public class Response {
+	public static final int BUFFER_SIZE = 2048;
+	//浏览器访问D盘文件
+	private static final String WEB_ROOT = "D:";
+	private Request request;
+	private OutputStream output;
+	
+	public Response(OutputStream output) {
+		this.output = output;
+	}
+	
+	public void  setRequest(Request request) {
+		this.request = request;
+	}
+	
+	public void sendStaticResource() throws IOException {
+		byte[] bytes = new byte[BUFFER_SIZE];
+		FileInputStream fis = null;
+		//拼接本地目录和浏览器端口号后面的目录
+		try {
+			if (request.getUrl() != null) {
+				File file = new File(WEB_ROOT,request.getUrl());
+				//如果这个文件存在且不是一个文件夹
+				if (file.exists() && !file.isDirectory()) {
+					fis = new FileInputStream(file);
+					int read = fis.read(bytes, 0, BUFFER_SIZE);
+					String retMessage = "Content-Type: text/html\r\n" +
+							"Content-Length: "+BUFFER_SIZE+"\r\n" +
+							"\r\n";
+					output.write(retMessage.getBytes());
+					StringBuffer buffer = new StringBuffer(BUFFER_SIZE);
+					while (read != -1) {
+						output.write(bytes, 0, read);
+						for (byte b:bytes) {
+							buffer.append((char) b);
+						}
+						read = fis.read(bytes, 0, BUFFER_SIZE);
+					}
+					System.out.println("+++++++++Response++++++++++");
+					System.out.println(buffer.toString());
+				} else {
+					//如果文件不存在，拼接错误信息html返回浏览器
+					String returnMsg = "<h1>"+file.getName()+" file or directory not exists</h1>";
+					String retMessage = "HTTP/1.1 404 File Not Found\r\n" +
+							"Content-Type: text/html\r\n" +
+							"Content-Length: "+returnMsg.length()+"\r\n" +
+							"\r\n" + returnMsg;
+					output.write(returnMsg.getBytes());
+			}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (fis != null) {
+				fis.close();
+			}
+		}
+	}
+}

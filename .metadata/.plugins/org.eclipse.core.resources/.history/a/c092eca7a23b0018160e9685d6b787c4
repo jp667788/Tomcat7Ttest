@@ -1,0 +1,15 @@
+package com.lijunpeng.my_tomcat;
+
+import java.net.ServerSocket;
+
+public class HttpServer {
+	//判断是否需要关闭容器
+	private boolean shutdown = false;
+	
+	public void acceptWait() {
+		ServerSocket serverSocket = null ;
+		
+		serverSocket = new ServerSocket(8080, 1, "127,0.0.1")
+	}
+	
+}

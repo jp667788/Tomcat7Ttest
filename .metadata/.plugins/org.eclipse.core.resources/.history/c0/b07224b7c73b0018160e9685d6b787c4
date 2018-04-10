@@ -1,0 +1,18 @@
+package com.lijunpeng.my_tomcat;
+
+import java.io.InputStream;
+
+public class Request {
+	private InputStream is;
+	
+	private String url;
+	
+	public Request(InputStream is) {
+		this.is = is;
+	}
+	
+	public void parse() {
+		
+	}
+	
+}

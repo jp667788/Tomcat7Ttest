@@ -1,0 +1,10 @@
+package com.lijunpeng.my_tomcat;
+
+import java.io.InputStream;
+
+public class Request {
+	private InputStream is;
+	
+	
+	
+}

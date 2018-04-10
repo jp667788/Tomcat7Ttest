@@ -1,0 +1,6 @@
+package com.lijunpeng.my_tomcat;
+
+public class HttpServer {
+	//判断是否需要关闭容器
+	
+}

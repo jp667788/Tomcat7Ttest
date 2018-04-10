@@ -1,0 +1,4 @@
+INDEX VERSION 1.130+D:\workspace\ljp_private\my_tomcat\.metadata\.plugins\org.eclipse.jdt.core
+2827903369.index
+740817643.index
+760867553.index
